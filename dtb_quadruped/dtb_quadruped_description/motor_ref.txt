@@ -1,10 +1,10 @@
          ^
        Front
-	1       2
+     1       2
 	
 	
 	
-	3       4
+     3       4
 	
 	
 T1  Min (down): -pi/10   Max (up): pi/10 
