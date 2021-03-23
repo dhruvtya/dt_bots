@@ -1,0 +1,23 @@
+         ^
+       Front
+	1       2
+	
+	
+	
+	3       4
+	
+	
+T1  Min (down): -pi/10   Max (up): pi/10 
+T2  Min (up): -pi/10   Max (down): pi/10
+T3  Min (down): -pi/10   Max (up): pi/10
+T4  Min (up): -pi/10   Max (down): pi/10
+
+L1  Min (extended): -pi  Max (rest): 0
+L2  Min (rest): 0  Max (extended): pi
+L3  Min (extended): -pi  Max (rest): 0
+L4  Min (rest): 0  Max (extended): pi
+
+H1  Min (rest): 0  Max (extended): pi
+H2  Min (extended): -pi  Max (rest): 0
+H3  Min (rest): 0  Max (extended): pi
+H4  Min (extended): -pi  Max (rest): 0
