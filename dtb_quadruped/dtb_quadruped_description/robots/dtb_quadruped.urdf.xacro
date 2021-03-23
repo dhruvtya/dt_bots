@@ -6,6 +6,7 @@
 	<xacro:property name="body_box_length" value="0.6"/>
 	<xacro:property name="body_box_width" value="0.25"/>
 	<xacro:property name="body_box_height" value="0.1"/>
+	<xacro:property name="M_PI" value="3.1415926"/>
 
 	<!-- Base Description-->
 
@@ -68,11 +69,12 @@
     	    			izz="0.0004"/>
 			</inertial>
 		</link>
-		<joint name="t_motor_${t_motor_num}_joint" type="continuous">
+		<joint name="t_motor_${t_motor_num}_joint" type="revolute">
 			<parent link="base_link"/>
 			<child link="t_motor_${t_motor_num}"/>
-			<origin xyz="${x_pos} ${((body_box_width/2)-0.03)*y_pos} ${(-body_box_height/2)+0.04}" rpy="0 1.5707 0"/>
+			<origin xyz="${x_pos} ${((body_box_width/2)-0.03)*y_pos} ${(-body_box_height/2)+0.04}" rpy="0 ${M_PI/2} 0"/>
 			<axis xyz="0 0 1"/>
+			<limit effort="15" lower="${(-M_PI/10)*y_pos}" upper="${(M_PI/10)*y_pos}" velocity="157"/>
 		</joint>
 	</xacro:macro>
 	<xacro:t_motor_macro t_motor_num="1" x_pos="${(body_box_length/2)-0.1}" y_pos="1"/>
@@ -144,11 +146,12 @@
     	    			izz="0.0004"/>
 			</inertial>
 		</link>
-		<joint name="l_motor_${l_motor_num}_joint" type="continuous">
+		<joint name="l_motor_${l_motor_num}_joint" type="revolute">
 			<parent link="t_l_link_${l_motor_num}"/>
 			<child link="l_motor_${l_motor_num}"/>
-			<origin xyz="0 ${(0.055)*pose} 0" rpy="${(-1.5707)*pose} 0 0"/>
+			<origin xyz="0 ${(0.055)*pose} 0" rpy="${(-M_PI/2)*pose} 0 0"/>
 			<axis xyz="0 0 1"/>
+			<limit effort="15" lower="${(-M_PI/2)+((-M_PI/2)*pose)}" upper="${(M_PI/2)-((M_PI/2)*pose)}" velocity="157"/>
 		</joint>
 	</xacro:macro>
 	<xacro:l_motor_macro l_motor_num="1" pose="1"/>
@@ -185,7 +188,7 @@
 		<joint name="l_thigh_${thigh_num}_joint" type="fixed">
 			<parent link="l_motor_${thigh_num}"/>
 			<child link="thigh_link_${thigh_num}"/>
-			<origin xyz="0 ${0.125*pose} 0.015" rpy="0 0 ${1.5707*pose}"/>
+			<origin xyz="0 ${0.125*pose} 0.015" rpy="0 0 ${(M_PI/2)*pose}"/>
 			<axis xyz="0 0 1"/>
 		</joint>
 	</xacro:macro>
@@ -236,7 +239,7 @@
 	
 	<!-- Height Motor -->
 	
-	<xacro:macro name="h_motor_macro" params="h_motor_num">
+	<xacro:macro name="h_motor_macro" params="h_motor_num pose">
 		<link name="h_motor_${h_motor_num}">
 			<visual>
 				<origin xyz = "0 0 0" rpy = "0 0 0"/>
@@ -260,17 +263,18 @@
     	    			izz="0.0004"/>
 			</inertial>
 		</link>
-		<joint name="h_motor_${h_motor_num}_joint" type="continuous">
+		<joint name="h_motor_${h_motor_num}_joint" type="revolute">
 			<parent link="thigh_link_${h_motor_num}"/>
 			<child link="h_motor_${h_motor_num}"/>
 			<origin xyz="0.125 0 0.015" rpy="0 0 0"/>
 			<axis xyz="0 0 1"/>
+			<limit effort="15" lower="${0 + (-M_PI*pose)}" upper="${M_PI-(pose*M_PI)}" velocity="157"/>
 		</joint>
 	</xacro:macro>
-	<xacro:h_motor_macro h_motor_num="1"/>
-	<xacro:h_motor_macro h_motor_num="2"/>
-	<xacro:h_motor_macro h_motor_num="3"/>
-	<xacro:h_motor_macro h_motor_num="4"/>
+	<xacro:h_motor_macro h_motor_num="1" pose="0"/>
+	<xacro:h_motor_macro h_motor_num="2" pose="1"/>
+	<xacro:h_motor_macro h_motor_num="3" pose="0"/>
+	<xacro:h_motor_macro h_motor_num="4" pose="1"/>
 	
 	<!-- Calf Link -->
 	
