@@ -356,6 +356,33 @@
 	<xacro:calf_semicirc_macro calf_num="4" up_down="-1"/>
 	<xacro:calf_semicirc_macro calf_num="4" up_down="1"/>
 	
+	
+	<!-- Hardware Transmission -->
+	<xacro:macro name="transmission_macro" params="link_name">
+		<transmission name="${link_name}_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="${link_name}_joint">
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="${link_name}_actuator">
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+	</xacro:macro>
+	<xacro:transmission_macro link_name="t_motor_1"/>
+	<xacro:transmission_macro link_name="t_motor_2"/>
+	<xacro:transmission_macro link_name="t_motor_3"/>
+	<xacro:transmission_macro link_name="t_motor_4"/>
+	<xacro:transmission_macro link_name="l_motor_1"/>
+	<xacro:transmission_macro link_name="l_motor_2"/>
+	<xacro:transmission_macro link_name="l_motor_3"/>
+	<xacro:transmission_macro link_name="l_motor_4"/>
+	<xacro:transmission_macro link_name="h_motor_1"/>
+	<xacro:transmission_macro link_name="h_motor_2"/>
+	<xacro:transmission_macro link_name="h_motor_3"/>
+	<xacro:transmission_macro link_name="h_motor_4"/>
+	
 	<!-- Rviz Colors -->
 
 	<material name = "body_color">
