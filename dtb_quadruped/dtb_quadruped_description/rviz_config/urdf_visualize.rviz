@@ -71,7 +71,202 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        t_motor:
+        calf_link_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        calf_link_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        calf_link_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        calf_link_4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        calf_semicirc_1_-1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        calf_semicirc_1_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        calf_semicirc_2_-1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        calf_semicirc_2_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        calf_semicirc_3_-1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        calf_semicirc_3_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        calf_semicirc_4_-1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        calf_semicirc_4_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        h_motor_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        h_motor_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        h_motor_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        h_motor_4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l_motor_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l_motor_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l_motor_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l_motor_4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        t_l_link_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        t_l_link_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        t_l_link_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        t_l_link_4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        t_motor_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        t_motor_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        t_motor_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        t_motor_4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        thigh_link_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        thigh_link_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        thigh_link_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        thigh_link_4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        thigh_semicirc_1_-1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        thigh_semicirc_1_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        thigh_semicirc_2_-1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        thigh_semicirc_2_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        thigh_semicirc_3_-1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        thigh_semicirc_3_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        thigh_semicirc_4_-1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        thigh_semicirc_4_1:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -83,16 +278,10 @@ Visualization Manager:
       Value: true
       Visual Enabled: true
     - Class: rviz/TF
-      Enabled: true
+      Enabled: false
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        base_footprint:
-          Value: true
-        base_link:
-          Value: true
-        t_motor:
-          Value: true
       Marker Alpha: 1
       Marker Scale: 1
       Name: TF
@@ -100,12 +289,9 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        base_footprint:
-          base_link:
-            t_motor:
-              {}
+        {}
       Update Interval: 0
-      Value: true
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -150,9 +336,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.4803980588912964
+      Pitch: 0.5403980016708374
       Target Frame: <Fixed Frame>
-      Yaw: 0.9753979444503784
+      Yaw: 0.7653986215591431
     Saved: ~
 Window Geometry:
   Displays:
@@ -171,4 +357,4 @@ Window Geometry:
     collapsed: false
   Width: 1200
   X: 489
-  Y: 300
+  Y: 263
