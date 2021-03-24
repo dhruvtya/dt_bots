@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="turtlebot3_burger_sim">
+
+	<!-- Gazebo Colors -->
+	
+	<xacro:macro name="white_color_macro" params="link_name">
+		<gazebo reference="${link_name}">
+			<material>Gazebo/White</material>
+		</gazebo>
+	</xacro:macro>
+	<xacro:white_color_macro link_name="base_link"/>
+	<xacro:white_color_macro link_name="thigh_link_1"/>
+	<xacro:white_color_macro link_name="thigh_link_2"/>
+	<xacro:white_color_macro link_name="thigh_link_3"/>
+	<xacro:white_color_macro link_name="thigh_link_4"/>
+	<xacro:white_color_macro link_name="thigh_semicirc_1_-1"/>
+	<xacro:white_color_macro link_name="thigh_semicirc_1_1"/>
+	<xacro:white_color_macro link_name="thigh_semicirc_2_-1"/>
+	<xacro:white_color_macro link_name="thigh_semicirc_2_1"/>
+	<xacro:white_color_macro link_name="thigh_semicirc_3_-1"/>
+	<xacro:white_color_macro link_name="thigh_semicirc_3_1"/>
+	<xacro:white_color_macro link_name="thigh_semicirc_4_-1"/>
+	<xacro:white_color_macro link_name="thigh_semicirc_4_1"/>
+	
+	<xacro:macro name="black_color_macro" params="link_name">
+		<gazebo reference="${link_name}">
+			<material>Gazebo/Black</material>
+		</gazebo>
+	</xacro:macro>
+	<xacro:black_color_macro link_name="t_l_link_1"/>
+	<xacro:black_color_macro link_name="t_l_link_2"/>
+	<xacro:black_color_macro link_name="t_l_link_3"/>
+	<xacro:black_color_macro link_name="t_l_link_4"/>
+	<xacro:black_color_macro link_name="calf_link_1"/>
+	<xacro:black_color_macro link_name="calf_link_2"/>
+	<xacro:black_color_macro link_name="calf_link_3"/>
+	<xacro:black_color_macro link_name="calf_link_4"/>
+	<xacro:black_color_macro link_name="calf_semicirc_1_-1"/>
+	<xacro:black_color_macro link_name="calf_semicirc_1_1"/>
+	<xacro:black_color_macro link_name="calf_semicirc_2_-1"/>
+	<xacro:black_color_macro link_name="calf_semicirc_2_1"/>
+	<xacro:black_color_macro link_name="calf_semicirc_3_-1"/>
+	<xacro:black_color_macro link_name="calf_semicirc_3_1"/>
+	<xacro:black_color_macro link_name="calf_semicirc_4_-1"/>
+	<xacro:black_color_macro link_name="calf_semicirc_4_1"/>
+	
+	<xacro:macro name="red_color_macro" params="link_name">
+		<gazebo reference="${link_name}">
+			<material>Gazebo/Red</material>
+		</gazebo>
+	</xacro:macro>
+	<xacro:red_color_macro link_name="h_motor_1"/>
+	<xacro:red_color_macro link_name="h_motor_2"/>
+	<xacro:red_color_macro link_name="h_motor_3"/>
+	<xacro:red_color_macro link_name="h_motor_4"/>
+	
+	<xacro:macro name="yellow_color_macro" params="link_name">
+		<gazebo reference="${link_name}">
+			<material>Gazebo/Yellow</material>
+		</gazebo>
+	</xacro:macro>
+	<xacro:yellow_color_macro link_name="t_motor_1"/>
+	<xacro:yellow_color_macro link_name="t_motor_2"/>
+	<xacro:yellow_color_macro link_name="t_motor_3"/>
+	<xacro:yellow_color_macro link_name="t_motor_4"/>
+	<xacro:yellow_color_macro link_name="l_motor_1"/>
+	<xacro:yellow_color_macro link_name="l_motor_2"/>
+	<xacro:yellow_color_macro link_name="l_motor_3"/>
+	<xacro:yellow_color_macro link_name="l_motor_4"/>
+	
+	
+</robot>
