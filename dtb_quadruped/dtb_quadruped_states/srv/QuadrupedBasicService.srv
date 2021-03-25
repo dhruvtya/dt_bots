@@ -1,0 +1,3 @@
+int16 requested_state
+---
+string msg_feedback
