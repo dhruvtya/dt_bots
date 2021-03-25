@@ -71,7 +71,7 @@ bool handle_basic_service_request(dtb_quadruped_states::QuadrupedBasicService::R
     h4_pub.publish(h4_com);
 
     // Wait 3 seconds for arm to settle
-    ros::Duration(2).sleep();
+    ros::Duration(3).sleep();
 
     // Return a response message
     res.msg_feedback =  "State executed"  ;
