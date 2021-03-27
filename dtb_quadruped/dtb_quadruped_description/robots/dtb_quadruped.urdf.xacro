@@ -8,8 +8,9 @@
 	<xacro:property name="body_box_length" value="0.6"/>
 	<xacro:property name="body_box_width" value="0.25"/>
 	<xacro:property name="body_box_height" value="0.1"/>
-	<xacro:property name="M_PI" value="3.1415926535897931"/>
-	<xacro:property name="motor_effort" value="30"/>
+	<xacro:property name="M_PI" value="3.1415926"/>
+	<xacro:property name="motor_effort" value="50"/>
+	<xacro:property name="motor_velocity" value="${M_PI/2}"/>
 
 	<!-- Base Description-->
 
@@ -38,11 +39,11 @@
 		</collision>
 		<inertial>
 			<origin xyz = "0 0 0" rpy = "0 0 0"/>
-			<mass value = "2.0"/>
+			<mass value = "4.0"/>
 			<inertia
-    	    	ixx="0.01201" ixy="0.0" ixz="0.0"
-    	    	iyy="0.06167" iyz="0.0"
-    	    	izz="0.07042"/>
+    	    	ixx="0.002201" ixy="0.0" ixz="0.0"
+    	    	iyy="0.008167" iyz="0.0"
+    	    	izz="0.009042"/>
 		</inertial>
 	</link>
 	
@@ -77,7 +78,7 @@
 			<child link="t_motor_${t_motor_num}"/>
 			<origin xyz="${x_pos} ${((body_box_width/2)-0.03)*y_pos} ${(-body_box_height/2)+0.04}" rpy="0 ${M_PI/2} 0"/>
 			<axis xyz="0 0 1"/>
-			<limit effort="${motor_effort}" lower="${(-M_PI/10)*y_pos}" upper="${(M_PI/10)*y_pos}" velocity="157"/>
+			<limit effort="${motor_effort}" lower="${-(M_PI/10)}" upper="${(M_PI/10)}" velocity="${motor_velocity}"/>
 		</joint>
 	</xacro:macro>
 	<xacro:t_motor_macro t_motor_num="1" x_pos="${(body_box_length/2)-0.1}" y_pos="1"/>
@@ -154,7 +155,7 @@
 			<child link="l_motor_${l_motor_num}"/>
 			<origin xyz="0 ${(0.055)*pose} 0" rpy="${(-M_PI/2)*pose} 0 0"/>
 			<axis xyz="0 0 1"/>
-			<limit effort="${motor_effort}" lower="${(-M_PI/2)+((-M_PI/2)*pose)}" upper="${(M_PI/2)-((M_PI/2)*pose)}" velocity="157"/>
+			<limit effort="${motor_effort}" lower="${(-M_PI/2)+((-M_PI/2)*pose)}" upper="${(M_PI/2)-((M_PI/2)*pose)}" velocity="${motor_velocity}"/>
 		</joint>
 	</xacro:macro>
 	<xacro:l_motor_macro l_motor_num="1" pose="1"/>
@@ -181,11 +182,11 @@
 			</collision>
 			<inertial>
 				<origin xyz = "0 0 0" rpy = "0 0 0"/>
-				<mass value = "0.3"/>
+				<mass value = "0.5"/>
 				<inertia
-    	    			ixx="0.0001825" ixy="0.0" ixz="0.0"
-    	    			iyy="0.001585" iyz="0.0"
-    	    			izz="0.001722"/>
+    	    			ixx="0.0002825" ixy="0.0" ixz="0.0"
+    	    			iyy="0.002585" iyz="0.0"
+    	    			izz="0.002722"/>
 			</inertial>
 		</link>
 		<joint name="l_thigh_${thigh_num}_joint" type="fixed">
@@ -209,20 +210,6 @@
 				</geometry>
 				<material name = "thigh_color"/>
 			</visual>
-			<collision>
-				<origin xyz = "0 0 0" rpy = "0 0 0"/>
-				<geometry>
-					<cylinder length="0.03" radius="0.04"/>
-				</geometry>
-			</collision>
-			<inertial>
-				<origin xyz = "0 0 0" rpy = "0 0 0"/>
-				<mass value = "0.1"/>
-				<inertia
-    	    			ixx="0.0000475" ixy="0.0" ixz="0.0"
-    	    			iyy="0.0000475" iyz="0.0"
-    	    			izz="0.00008"/>
-			</inertial>
 		</link>
 		<joint name="thigh_semicirc_${thigh_num}_${up_down}_joint" type="fixed">
 			<parent link="thigh_link_${thigh_num}"/>
@@ -271,7 +258,7 @@
 			<child link="h_motor_${h_motor_num}"/>
 			<origin xyz="0.125 0 0.015" rpy="0 0 0"/>
 			<axis xyz="0 0 1"/>
-			<limit effort="${motor_effort}" lower="${0 + (-M_PI*pose)}" upper="${M_PI-(pose*M_PI)}" velocity="157"/>
+			<limit effort="${motor_effort}" lower="${0 + (-M_PI*pose)}" upper="${M_PI-(pose*M_PI)}" velocity="${motor_velocity}"/>
 		</joint>
 	</xacro:macro>
 	<xacro:h_motor_macro h_motor_num="1" pose="0"/>
@@ -298,11 +285,11 @@
 			</collision>
 			<inertial>
 				<origin xyz = "0 0 0" rpy = "0 0 0"/>
-				<mass value = "0.3"/>
+				<mass value = "0.5"/>
 				<inertia
-    	    			ixx="0.0001825" ixy="0.0" ixz="0.0"
-    	    			iyy="0.001585" iyz="0.0"
-    	    			izz="0.001722"/>
+    	    			ixx="0.0002825" ixy="0.0" ixz="0.0"
+    	    			iyy="0.002585" iyz="0.0"
+    	    			izz="0.002722"/>
 			</inertial>
 		</link>
 		<joint name="h_calf_${calf_num}_joint" type="fixed">

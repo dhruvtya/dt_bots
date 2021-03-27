@@ -50,8 +50,27 @@ bool handle_basic_service_request(dtb_quadruped_states::QuadrupedBasicService::R
     
        break;
        
+       case 1:
+         ROS_INFO("Stand request");
+         t1_com.data = 0;
+         t2_com.data = 0;
+         t3_com.data = 0;
+         t4_com.data = 0;
+         
+         l1_com.data = (motors_min_max[4].at(1)-motors_min_max[4].at(0))/3;
+         l2_com.data = (motors_min_max[5].at(1)-motors_min_max[5].at(0))/3;
+         l3_com.data = (motors_min_max[6].at(1)-motors_min_max[6].at(0))/3;
+         l4_com.data = (motors_min_max[7].at(1)-motors_min_max[7].at(0))/3;
+         
+         h1_com.data = ((motors_min_max[8].at(1)-motors_min_max[8].at(0))*2)/3;
+         h2_com.data = ((motors_min_max[9].at(1)-motors_min_max[9].at(0))*2)/3;
+         h3_com.data = ((motors_min_max[10].at(1)-motors_min_max[10].at(0))*2)/3;
+         h4_com.data = ((motors_min_max[11].at(1)-motors_min_max[11].at(0))*2)/3;
+         
+       break;
+       
        default:
-         ROS_INFO("Invalid request, Sitting down");
+         ROS_INFO("Invalid request");
          
     }
     

@@ -6,48 +6,48 @@ dtb_quadruped:
   t_motor_1_position_controller:
     type: effort_controllers/JointPositionController
     joint: t_motor_1_joint
-    pid: {p: 30.0, i: 0.01, d: 5.0}
+    pid: {p: 150, d: 1.0, i: 0}
   t_motor_2_position_controller:
     type: effort_controllers/JointPositionController
     joint: t_motor_2_joint
-    pid: {p: 30.0, i: 0.01, d: 5.0}
+    pid: {p: 150, d: 1.0, i: 0}
   t_motor_3_position_controller:
     type: effort_controllers/JointPositionController
     joint: t_motor_3_joint
-    pid: {p: 30.0, i: 0.01, d: 5.0}
+    pid: {p: 150, d: 1.0, i: 0}
   t_motor_4_position_controller:
     type: effort_controllers/JointPositionController
     joint: t_motor_4_joint
-    pid: {p: 30.0, i: 0.01, d: 5.0}
+    pid: {p: 150, d: 1.0, i: 0}
   l_motor_1_position_controller:
     type: effort_controllers/JointPositionController
     joint: l_motor_1_joint
-    pid: {p: 30.0, i: 0.01, d: 5.0}
+    pid: {p: 150, d: 5.0, i: 0}
   l_motor_2_position_controller:
     type: effort_controllers/JointPositionController
     joint: l_motor_2_joint
-    pid: {p: 30.0, i: 0.01, d: 5.0}
+    pid: {p: 150, d: 5.0, i: 0}
   l_motor_3_position_controller:
     type: effort_controllers/JointPositionController
     joint: l_motor_3_joint
-    pid: {p: 30.0, i: 0.01, d: 5.0}
+    pid: {p: 150, d: 5.0, i: 0}
   l_motor_4_position_controller:
     type: effort_controllers/JointPositionController
     joint: l_motor_4_joint
-    pid: {p: 30.0, i: 0.01, d: 5.0}
+    pid: {p: 150, d: 5.0, i: 0}
   h_motor_1_position_controller:
     type: effort_controllers/JointPositionController
     joint: h_motor_1_joint
-    pid: {p: 30.0, i: 0.01, d: 5.0}
+    pid: {p: 150, d: 5.0, i: 0}
   h_motor_2_position_controller:
     type: effort_controllers/JointPositionController
     joint: h_motor_2_joint
-    pid: {p: 30.0, i: 0.01, d: 5.0}
+    pid: {p: 150, d: 5.0, i: 0}
   h_motor_3_position_controller:
     type: effort_controllers/JointPositionController
     joint: h_motor_3_joint
-    pid: {p: 30.0, i: 0.01, d: 5.0}
+    pid: {p: 150, d: 5.0, i: 0}
   h_motor_4_position_controller:
     type: effort_controllers/JointPositionController
     joint: h_motor_4_joint
-    pid: {p: 30.0, i: 0.01, d: 5.0}
+    pid: {p: 150, d: 5.0, i: 0}

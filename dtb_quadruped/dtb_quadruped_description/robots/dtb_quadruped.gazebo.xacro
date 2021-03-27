@@ -12,19 +12,59 @@
 	
 	<!-- Macro for Material properties -->
 	
-	<xacro:macro name="material_prop_macro" params="link_name">
+	<xacro:macro name="foot_material_prop_macro" params="link_name">
 		<gazebo reference="${link_name}">
-			<kp>1000.0</kp>
-			<kd>1000.0</kd>
+			<kp>100000.0</kp>
+			<kd>100000.0</kd>
 			<mu1>10.0</mu1>
 			<mu2>10.0</mu2>
+			<selfCollide>false</selfCollide>
 		</gazebo>
 	</xacro:macro>
-	<xacro:material_prop_macro link_name="calf_semicirc_1_1"/>
-	<xacro:material_prop_macro link_name="calf_semicirc_2_1"/>
-	<xacro:material_prop_macro link_name="calf_semicirc_2_1"/>
-	<xacro:material_prop_macro link_name="calf_semicirc_2_1"/>
-
+	<xacro:foot_material_prop_macro link_name="calf_semicirc_1_-1"/>
+	<xacro:foot_material_prop_macro link_name="calf_semicirc_2_-1"/>
+	<xacro:foot_material_prop_macro link_name="calf_semicirc_3_-1"/>
+	<xacro:foot_material_prop_macro link_name="calf_semicirc_4_-1"/>
+	
+	
+	<xacro:macro name="body_material_prop_macro" params="link_name">
+		<gazebo reference="${link_name}">
+			<kp>100000.0</kp>
+			<kd>100000.0</kd>
+			<mu1>0.5</mu1>
+			<mu2>0.5</mu2>
+			<selfCollide>false</selfCollide>
+		</gazebo>
+	</xacro:macro>
+	<xacro:body_material_prop_macro link_name="base_link"/>
+	<xacro:body_material_prop_macro link_name="t_motor_1"/>
+	<xacro:body_material_prop_macro link_name="t_motor_2"/>
+	<xacro:body_material_prop_macro link_name="t_motor_3"/>
+	<xacro:body_material_prop_macro link_name="t_motor_4"/>
+	<xacro:body_material_prop_macro link_name="l_motor_1"/>
+	<xacro:body_material_prop_macro link_name="l_motor_2"/>
+	<xacro:body_material_prop_macro link_name="l_motor_3"/>
+	<xacro:body_material_prop_macro link_name="l_motor_4"/>
+	<xacro:body_material_prop_macro link_name="h_motor_1"/>
+	<xacro:body_material_prop_macro link_name="h_motor_2"/>
+	<xacro:body_material_prop_macro link_name="h_motor_3"/>
+	<xacro:body_material_prop_macro link_name="h_motor_4"/>
+	<xacro:body_material_prop_macro link_name="t_l_link_1"/>
+	<xacro:body_material_prop_macro link_name="t_l_link_2"/>
+	<xacro:body_material_prop_macro link_name="t_l_link_3"/>
+	<xacro:body_material_prop_macro link_name="t_l_link_4"/>
+	<xacro:body_material_prop_macro link_name="thigh_link_1"/>
+	<xacro:body_material_prop_macro link_name="thigh_link_2"/>
+	<xacro:body_material_prop_macro link_name="thigh_link_3"/>
+	<xacro:body_material_prop_macro link_name="thigh_link_4"/>
+	<xacro:body_material_prop_macro link_name="calf_link_1"/>
+	<xacro:body_material_prop_macro link_name="calf_link_2"/>
+	<xacro:body_material_prop_macro link_name="calf_link_3"/>
+	<xacro:body_material_prop_macro link_name="calf_link_4"/>
+	<xacro:body_material_prop_macro link_name="calf_semicirc_1_1"/>
+	<xacro:body_material_prop_macro link_name="calf_semicirc_2_1"/>
+	<xacro:body_material_prop_macro link_name="calf_semicirc_3_1"/>
+	<xacro:body_material_prop_macro link_name="calf_semicirc_4_1"/>
 
 	<!-- Gazebo Colors -->
 	
