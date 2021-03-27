@@ -1,3 +1,4 @@
 int16 requested_state
+float64 req_height
 ---
 string msg_feedback

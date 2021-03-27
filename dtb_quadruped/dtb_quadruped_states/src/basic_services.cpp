@@ -6,6 +6,8 @@
 
 using namespace std;
 
+const double max_height = 0.4, thigh_len = 0.25, calf_len = 0.25;
+
 vector <vector<float>> motors_min_max
 {
   {M_PI/10,-M_PI/10}, {-M_PI/10,M_PI/10}, {M_PI/10,-M_PI/10}, {-M_PI/10,M_PI/10},
@@ -20,6 +22,8 @@ ros::Publisher t1_pub, t2_pub, t3_pub, t4_pub;
 ros::Publisher l1_pub, l2_pub, l3_pub, l4_pub;
 ros::Publisher h1_pub, h2_pub, h3_pub, h4_pub;
 
+// Supporting functions
+double leg_angle_calc(char, int, double);
 
 
 // Callback for basic service
@@ -57,15 +61,15 @@ bool handle_basic_service_request(dtb_quadruped_states::QuadrupedBasicService::R
          t3_com.data = 0;
          t4_com.data = 0;
          
-         l1_com.data = (motors_min_max[4].at(1)-motors_min_max[4].at(0))/3;
-         l2_com.data = (motors_min_max[5].at(1)-motors_min_max[5].at(0))/3;
-         l3_com.data = (motors_min_max[6].at(1)-motors_min_max[6].at(0))/3;
-         l4_com.data = (motors_min_max[7].at(1)-motors_min_max[7].at(0))/3;
+         l1_com.data = leg_angle_calc('l', 1, req.req_height); //(motors_min_max[4].at(1)-motors_min_max[4].at(0))/3;
+         l2_com.data = leg_angle_calc('l', 2, req.req_height); //(motors_min_max[5].at(1)-motors_min_max[5].at(0))/3;
+         l3_com.data = leg_angle_calc('l', 3, req.req_height); //(motors_min_max[6].at(1)-motors_min_max[6].at(0))/3;
+         l4_com.data = leg_angle_calc('l', 4, req.req_height); //(motors_min_max[7].at(1)-motors_min_max[7].at(0))/3;
          
-         h1_com.data = ((motors_min_max[8].at(1)-motors_min_max[8].at(0))*2)/3;
-         h2_com.data = ((motors_min_max[9].at(1)-motors_min_max[9].at(0))*2)/3;
-         h3_com.data = ((motors_min_max[10].at(1)-motors_min_max[10].at(0))*2)/3;
-         h4_com.data = ((motors_min_max[11].at(1)-motors_min_max[11].at(0))*2)/3;
+         h1_com.data = leg_angle_calc('h', 1, req.req_height); //((motors_min_max[8].at(1)-motors_min_max[8].at(0))*2)/3;
+         h2_com.data = leg_angle_calc('h', 2, req.req_height); //((motors_min_max[9].at(1)-motors_min_max[9].at(0))*2)/3;
+         h3_com.data = leg_angle_calc('h', 3, req.req_height); //((motors_min_max[10].at(1)-motors_min_max[10].at(0))*2)/3;
+         h4_com.data = leg_angle_calc('h', 4, req.req_height); //((motors_min_max[11].at(1)-motors_min_max[11].at(0))*2)/3;
          
        break;
        
@@ -134,3 +138,45 @@ int main(int argc, char** argv)
 
     return 0;
 }
+
+
+
+double leg_angle_calc(char motor_type, int leg_no, double height)
+{
+    double mot_angle = 0.0, theta_l;
+    
+    if((motor_type != 'l' && motor_type != 'h') || (leg_no > 4 || leg_no < 1) || (height < 0.05 || height > max_height)){
+      ROS_INFO("Invalid command");
+    }
+    else{
+      theta_l = asin((height/2)/thigh_len);
+      if(motor_type == 'l'){
+        if(leg_no == 1 || leg_no == 3){
+          mot_angle = (-1)*theta_l;
+        }
+        else{mot_angle = theta_l;}
+      }
+      else{
+        if(leg_no == 1 || leg_no == 3){
+          mot_angle = 2*theta_l;
+        }
+        else{mot_angle = (-1)*(2*theta_l);}
+      }
+    }
+    return mot_angle; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
