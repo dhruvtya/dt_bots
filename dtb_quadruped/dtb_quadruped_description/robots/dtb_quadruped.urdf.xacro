@@ -10,7 +10,7 @@
 	<xacro:property name="body_box_height" value="0.1"/>
 	<xacro:property name="M_PI" value="3.1415926"/>
 	<xacro:property name="motor_effort" value="50"/>
-	<xacro:property name="motor_velocity" value="${M_PI/2}"/>
+	<xacro:property name="motor_velocity" value="${M_PI}"/>
 
 	<!-- Base Description-->
 
