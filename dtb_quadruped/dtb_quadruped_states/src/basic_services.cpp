@@ -2,9 +2,14 @@
 #include "dtb_quadruped_states/QuadrupedBasicService.h"
 #include <std_msgs/Int16.h>
 #include <std_msgs/Float64.h>
+#include <std_msgs/Float64MultiArray.h>
 #include <cmath>
-
 using namespace std;
+
+
+
+//// GLOBAL ///////////////////////
+///////////////////////////////////
 
 const double max_height = 0.4, thigh_len = 0.25, calf_len = 0.25;
 
@@ -13,14 +18,16 @@ vector <vector<float>> motors_min_max
   {M_PI/10,-M_PI/10}, {-M_PI/10,M_PI/10}, {M_PI/10,-M_PI/10}, {-M_PI/10,M_PI/10},
   {0.0,-M_PI}, {0.0,M_PI}, {0.0,-M_PI}, {0.0,M_PI},
   {0.0,M_PI}, {0.0,-M_PI}, {0.0,M_PI}, {0.0,-M_PI},
-
 };
 
 
-// Global joint publisher variables
-ros::Publisher t1_pub, t2_pub, t3_pub, t4_pub;
-ros::Publisher l1_pub, l2_pub, l3_pub, l4_pub;
-ros::Publisher h1_pub, h2_pub, h3_pub, h4_pub;
+// Global joint publisher variable
+ros::Publisher motor_pub;
+
+///////////////////////////////////
+///////////////////////////////////
+
+
 
 // Supporting functions
 double leg_angle_calc(char, int, double);
@@ -30,46 +37,24 @@ double leg_angle_calc(char, int, double);
 bool handle_basic_service_request(dtb_quadruped_states::QuadrupedBasicService::Request& req,
     dtb_quadruped_states::QuadrupedBasicService::Response& res)
 {
-    std_msgs::Float64 t1_com, t2_com, t3_com, t4_com;
-    std_msgs::Float64 l1_com, l2_com, l3_com, l4_com;
-    std_msgs::Float64 h1_com, h2_com, h3_com, h4_com;
+    vector <double> motors_command {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}; 
+    std_msgs::Float64MultiArray to_motor;
     
     switch(req.requested_state){
        case 0:
          ROS_INFO("Sit request");
-         t1_com.data = 0;
-         t2_com.data = 0;
-         t3_com.data = 0;
-         t4_com.data = 0;
          
-         l1_com.data = motors_min_max[4].at(0);
-         l2_com.data = motors_min_max[5].at(0);
-         l3_com.data = motors_min_max[6].at(0);
-         l4_com.data = motors_min_max[7].at(0);
-         
-         h1_com.data = motors_min_max[8].at(0);
-         h2_com.data = motors_min_max[9].at(0);
-         h3_com.data = motors_min_max[10].at(0);
-         h4_com.data = motors_min_max[11].at(0);
+         for(int i = 4; i<12; i++) {motors_command[i] = motors_min_max[i].at(0);}
     
        break;
        
        case 1:
          ROS_INFO("Stand request");
-         t1_com.data = 0;
-         t2_com.data = 0;
-         t3_com.data = 0;
-         t4_com.data = 0;
          
-         l1_com.data = leg_angle_calc('l', 1, req.req_height); //(motors_min_max[4].at(1)-motors_min_max[4].at(0))/3;
-         l2_com.data = leg_angle_calc('l', 2, req.req_height); //(motors_min_max[5].at(1)-motors_min_max[5].at(0))/3;
-         l3_com.data = leg_angle_calc('l', 3, req.req_height); //(motors_min_max[6].at(1)-motors_min_max[6].at(0))/3;
-         l4_com.data = leg_angle_calc('l', 4, req.req_height); //(motors_min_max[7].at(1)-motors_min_max[7].at(0))/3;
-         
-         h1_com.data = leg_angle_calc('h', 1, req.req_height); //((motors_min_max[8].at(1)-motors_min_max[8].at(0))*2)/3;
-         h2_com.data = leg_angle_calc('h', 2, req.req_height); //((motors_min_max[9].at(1)-motors_min_max[9].at(0))*2)/3;
-         h3_com.data = leg_angle_calc('h', 3, req.req_height); //((motors_min_max[10].at(1)-motors_min_max[10].at(0))*2)/3;
-         h4_com.data = leg_angle_calc('h', 4, req.req_height); //((motors_min_max[11].at(1)-motors_min_max[11].at(0))*2)/3;
+         for(int i = 1; i <= 4; i++){
+           motors_command[i+3] = leg_angle_calc('l', i, req.req_height);
+           motors_command[i+7] = leg_angle_calc('h', i, req.req_height);
+         }
          
        break;
        
@@ -78,23 +63,13 @@ bool handle_basic_service_request(dtb_quadruped_states::QuadrupedBasicService::R
          
     }
     
-    t1_pub.publish(t1_com);
-    t2_pub.publish(t2_com);
-    t3_pub.publish(t3_com);
-    t4_pub.publish(t4_com);
+    to_motor.data = motors_command;
     
-    l1_pub.publish(l1_com);
-    l2_pub.publish(l2_com);
-    l3_pub.publish(l3_com);
-    l4_pub.publish(l4_com);
-    
-    h1_pub.publish(h1_com);
-    h2_pub.publish(h2_com);
-    h3_pub.publish(h3_com);
-    h4_pub.publish(h4_com);
+    // Publish to motor
+    motor_pub.publish(to_motor);
 
-    // Wait 3 seconds for arm to settle
-    ros::Duration(3).sleep();
+    // Wait seconds for motors to settle
+    ros::Duration(2).sleep();
 
     // Return a response message
     res.msg_feedback =  "State executed"  ;
@@ -111,23 +86,8 @@ int main(int argc, char** argv)
     ros::NodeHandle n;
     
 
-    // Publishers to publish std_msgs::Float64 messages on motor joints topics
-    t1_pub = n.advertise<std_msgs::Float64>("/dtb_quadruped/t_motor_1_position_controller/command", 10);
-    t2_pub = n.advertise<std_msgs::Float64>("/dtb_quadruped/t_motor_2_position_controller/command", 10);
-    t3_pub = n.advertise<std_msgs::Float64>("/dtb_quadruped/t_motor_3_position_controller/command", 10);
-    t4_pub = n.advertise<std_msgs::Float64>("/dtb_quadruped/t_motor_4_position_controller/command", 10);
-    
-    l1_pub = n.advertise<std_msgs::Float64>("/dtb_quadruped/l_motor_1_position_controller/command", 10);
-    l2_pub = n.advertise<std_msgs::Float64>("/dtb_quadruped/l_motor_2_position_controller/command", 10);
-    l3_pub = n.advertise<std_msgs::Float64>("/dtb_quadruped/l_motor_3_position_controller/command", 10);
-    l4_pub = n.advertise<std_msgs::Float64>("/dtb_quadruped/l_motor_4_position_controller/command", 10);
-    
-    h1_pub = n.advertise<std_msgs::Float64>("/dtb_quadruped/h_motor_1_position_controller/command", 10);
-    h2_pub = n.advertise<std_msgs::Float64>("/dtb_quadruped/h_motor_2_position_controller/command", 10);
-    h3_pub = n.advertise<std_msgs::Float64>("/dtb_quadruped/h_motor_3_position_controller/command", 10);
-    h4_pub = n.advertise<std_msgs::Float64>("/dtb_quadruped/h_motor_4_position_controller/command", 10);
-    
-    
+    // Publisher for motor joint group
+    motor_pub = n.advertise<std_msgs::Float64MultiArray>("/dtb_quadruped/motors_group_position_controller/command", 10);
     
     // Service with a handle_basic_service_request callback function
     ros::ServiceServer service = n.advertiseService("/dtb_quadruped/basic_service", handle_basic_service_request);

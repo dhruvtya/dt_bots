@@ -36,7 +36,7 @@
   <rosparam file="$(find dtb_quadruped_description)/config/dtb_quadruped_control.yaml" command="load"/>
   
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" ns="/dtb_quadruped" args="t_motor_1_position_controller t_motor_2_position_controller t_motor_3_position_controller t_motor_4_position_controller l_motor_1_position_controller l_motor_2_position_controller l_motor_3_position_controller l_motor_4_position_controller h_motor_1_position_controller h_motor_2_position_controller h_motor_3_position_controller h_motor_4_position_controller joint_state_controller"/>
+    output="screen" ns="/dtb_quadruped" args="motors_group_position_controller joint_state_controller"/>
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
     respawn="false" output="screen">
