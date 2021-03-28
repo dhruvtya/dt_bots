@@ -81,8 +81,8 @@ bool handle_basic_service_request(dtb_quadruped_states::QuadrupedBasicService::R
 
 int main(int argc, char** argv)
 {
-    // Initialize the arm_mover node and create a handle to it
-    ros::init(argc, argv, "dtbq_basic_servies");
+    // Initialize the node and create a handle to it
+    ros::init(argc, argv, "dtbq_basic_services");
     ros::NodeHandle n;
     
 
@@ -125,18 +125,6 @@ double leg_angle_calc(char motor_type, int leg_no, double height)
     }
     return mot_angle; 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
