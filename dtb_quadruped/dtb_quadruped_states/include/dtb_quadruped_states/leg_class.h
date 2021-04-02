@@ -10,7 +10,7 @@ using namespace std;
 const double MAX_LEG_EXTENSION = 0.4;
 const double MAX_PERP_HEIGHT = 0.35;
 const double MAX_LR_ANGLE = M_PI/10;
-const double MAX_FB_ANGLE = ;
+const double MAX_FB_ANGLE = M_PI/9;
 const double THIGH_LEN = 0.25;
 const double CALF_LEN = 0.25;
 
@@ -77,7 +77,7 @@ class Leg_Class
       
       vector <double> motor_commands {0.0, 0.0, 0.0};
       
-      if((perp_height < 0 || perp_height > MAX_PERP_HEIGHT) || (lr_angle > MAX_LR_ANGLE || lr_angle < (-MAX_LR_ANGLE)) || (fb_angle > MAX_FB_ANGLE || fb_angle < (-MAX_FB_ANGLE)))
+      if((perp_height < 0.0 || perp_height > MAX_PERP_HEIGHT) || (lr_angle > MAX_LR_ANGLE || lr_angle < (-MAX_LR_ANGLE)) || (fb_angle > MAX_FB_ANGLE || fb_angle < (-MAX_FB_ANGLE)))
       {
         ROS_ERROR("Leg Class Calculation exceeding limits - Perp_Height : %f, FB_Angle : %f, LR_Angle : %f", perp_height, fb_angle, lr_angle);
       }

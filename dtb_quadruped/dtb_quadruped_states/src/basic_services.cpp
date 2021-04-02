@@ -4,6 +4,7 @@
 #include <std_msgs/Float64.h>
 #include <std_msgs/Float64MultiArray.h>
 #include <cmath>
+#include "dtb_quadruped_states/leg_class.h"
 using namespace std;
 
 
@@ -14,13 +15,16 @@ using namespace std;
 // Global joint publisher variable
 ros::Publisher motor_pub;
 
+Leg_Class leg1(1), leg2(2), leg3(3), leg4(4);
+Leg_Class legs[] {leg1, leg2, leg3, leg4};
+
 ///////////////////////////////////
 ///////////////////////////////////
 
 
 
 // Supporting functions
-double leg_angle_calc(char, int, double);
+//double leg_angle_calc(char, int, double);
 
 
 // Callback for basic service
@@ -40,12 +44,13 @@ bool handle_basic_service_request(dtb_quadruped_states::QuadrupedBasicService::R
        
        case 1:
          ROS_INFO("Stand request");
-         
-         for(int i = 1; i <= 4; i++){
-           motors_command[i+3] = leg_angle_calc('l', i, req.req_height);
-           motors_command[i+7] = leg_angle_calc('h', i, req.req_height);
+         for(int i = 0; i < 4; i++)
+         {
+           vector <double> temp_for_motor = legs[i].calc_motor_angle(req. req_height, 0.0, 0.0);
+           motors_command[i] = temp_for_motor[0];
+           motors_command[i+4] = temp_for_motor[1];
+           motors_command[i+8] = temp_for_motor[2];
          }
-         
        break;
        
        default:
@@ -88,33 +93,5 @@ int main(int argc, char** argv)
 
     return 0;
 }
-
-
-
-double leg_angle_calc(char motor_type, int leg_no, double height)
-{
-    double mot_angle = 0.0, theta_l;
-    
-    if((motor_type != 'l' && motor_type != 'h') || (leg_no > 4 || leg_no < 1) || (height < 0.05 || height > max_height)){
-      ROS_INFO("Invalid command");
-    }
-    else{
-      theta_l = asin((height/2)/thigh_len);
-      if(motor_type == 'l'){
-        if(leg_no == 1 || leg_no == 3){
-          mot_angle = (-1)*theta_l;
-        }
-        else{mot_angle = theta_l;}
-      }
-      else{
-        if(leg_no == 1 || leg_no == 3){
-          mot_angle = 2*theta_l;
-        }
-        else{mot_angle = (-1)*(2*theta_l);}
-      }
-    }
-    return mot_angle; 
-}
-
 
 
