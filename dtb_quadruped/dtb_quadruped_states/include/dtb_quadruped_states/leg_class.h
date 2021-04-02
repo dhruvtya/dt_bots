@@ -34,6 +34,7 @@ class Leg_Class
     Leg_Class(int input_leg_no)
     {
       leg_no = input_leg_no;
+      ROS_INFO("Leg Class for leg no. %d initialised", leg_no);
     }
     
     
@@ -43,7 +44,7 @@ class Leg_Class
       switch(motor_type)
       {
         case 't':
-          if((temp_angle < 0.0 && (leg_no == 1 || leg_no == 3)) || (temp_angle > 0.0 && (leg_no == 2 || leg_no == 4)))
+          if(leg_no == 2 || leg_no == 4)
           {
             temp_motor_angle = -(temp_motor_angle);
           }

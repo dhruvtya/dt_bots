@@ -46,11 +46,30 @@ bool handle_basic_service_request(dtb_quadruped_states::QuadrupedBasicService::R
          ROS_INFO("Stand request");
          for(int i = 0; i < 4; i++)
          {
-           vector <double> temp_for_motor = legs[i].calc_motor_angle(req. req_height, 0.0, 0.0);
+           vector <double> temp_for_motor = legs[i].calc_motor_angle(req.req_height, 0.0, 0.0);
            motors_command[i] = temp_for_motor[0];
            motors_command[i+4] = temp_for_motor[1];
            motors_command[i+8] = temp_for_motor[2];
          }
+       break;
+       
+       case 2:
+         ROS_INFO("Twist request");
+         for(int i = 1; i < 3; i++)
+         {
+           vector <double> temp_for_motor = legs[i].calc_motor_angle(req.req_height, 0.0, 0.3);
+           motors_command[i] = temp_for_motor[0];
+           motors_command[i+4] = temp_for_motor[1];
+           motors_command[i+8] = temp_for_motor[2];
+         }
+         for(int i = 0; i < 4; i+=3)
+         {
+           vector <double> temp_for_motor = legs[i].calc_motor_angle(req.req_height, 0.0, -0.3);
+           motors_command[i] = temp_for_motor[0];
+           motors_command[i+4] = temp_for_motor[1];
+           motors_command[i+8] = temp_for_motor[2];
+         }
+         
        break;
        
        default:
