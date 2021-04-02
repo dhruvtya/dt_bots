@@ -11,16 +11,6 @@ using namespace std;
 //// GLOBAL ///////////////////////
 ///////////////////////////////////
 
-const double max_height = 0.4, thigh_len = 0.25, calf_len = 0.25;
-
-vector <vector<float>> motors_min_max
-{
-  {M_PI/10,-M_PI/10}, {-M_PI/10,M_PI/10}, {M_PI/10,-M_PI/10}, {-M_PI/10,M_PI/10},
-  {0.0,-M_PI}, {0.0,M_PI}, {0.0,-M_PI}, {0.0,M_PI},
-  {0.0,M_PI}, {0.0,-M_PI}, {0.0,M_PI}, {0.0,-M_PI},
-};
-
-
 // Global joint publisher variable
 ros::Publisher motor_pub;
 
