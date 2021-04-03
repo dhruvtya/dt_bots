@@ -3,6 +3,10 @@
 
 using namespace std;
 
+#ifndef _LEG_CLASS_H_
+#define _LEG_CLASS_H_
+
+
 //// GLOBAL ///////////////////////
 ///////////////////////////////////
 
@@ -112,3 +116,6 @@ vector <double> Leg_Class::calc_motor_angle(double perp_height, double fb_angle,
       
   return motor_commands;
 }
+
+
+#endif
