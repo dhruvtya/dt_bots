@@ -25,6 +25,8 @@ vector <vector<float>> motors_min_max
 ///////////////////////////////////
 ///////////////////////////////////
 
+
+
 class Leg_Class
 {
   private:
@@ -38,71 +40,75 @@ class Leg_Class
     }
     
     
+    double motor_angle_correction(char, double, double);
     
-    double motor_angle_correction(char motor_type, double temp_angle, double temp_motor_angle)
-    {
-      switch(motor_type)
-      {
-        case 't':
-          if(leg_no == 2 || leg_no == 4)
-          {
-            temp_motor_angle = -(temp_motor_angle);
-          }
-        break;
-        
-        case 'l':
-          temp_motor_angle = temp_motor_angle + temp_angle;
-          if(leg_no == 1 || leg_no == 3)
-          {
-            temp_motor_angle = -(temp_motor_angle);
-          }
-        break;
-        
-        case 'h':
-          if(leg_no == 2 || leg_no == 4)
-          {
-            temp_motor_angle = -(temp_motor_angle);
-          }
-        break;
-        
-        default:
-          ROS_ERROR("Invalid motor type for motor angle correction");
-      }
-      return temp_motor_angle;
-    }
-    
-    
-    
-    vector <double> calc_motor_angle(double perp_height, double fb_angle, double lr_angle)
-    {
-      
-      vector <double> motor_commands {0.0, 0.0, 0.0};
-      
-      if((perp_height < 0.0 || perp_height > MAX_PERP_HEIGHT) || (lr_angle > MAX_LR_ANGLE || lr_angle < (-MAX_LR_ANGLE)) || (fb_angle > MAX_FB_ANGLE || fb_angle < (-MAX_FB_ANGLE)))
-      {
-        ROS_ERROR("Leg Class Calculation exceeding limits - Perp_Height : %f, FB_Angle : %f, LR_Angle : %f", perp_height, fb_angle, lr_angle);
-      }
-      
-      else
-      {
-        double theta_l = 0.0, theta_h = 0.0, theta_t = 0.0;
-        double LEF = ((perp_height/cos(lr_angle)) + (0.1*(tan(lr_angle))))/cos(fb_angle);
-        
-        theta_l = asin((LEF/2)/THIGH_LEN);
-        theta_h = 2 * theta_l;
-        theta_t = lr_angle;
-        
-        theta_l = motor_angle_correction('l', fb_angle, theta_l);
-        theta_h = motor_angle_correction('h', fb_angle, theta_h);
-        theta_t = motor_angle_correction('t', lr_angle, theta_t);
-        
-        motor_commands[0] = theta_t;
-        motor_commands[1] = theta_l;
-        motor_commands[2] = theta_h;
-      }
-      
-      return motor_commands;
-
-    }
+    vector <double> calc_motor_angle(double, double, double);
 
 };
+
+
+
+
+
+
+double Leg_Class::motor_angle_correction(char motor_type, double temp_angle, double temp_motor_angle)
+{
+  switch(motor_type)
+  {
+    case 't':
+      if(leg_no == 2 || leg_no == 4)
+      {
+        temp_motor_angle = -(temp_motor_angle);
+      }
+    break;
+        
+    case 'l':
+      temp_motor_angle = temp_motor_angle + temp_angle;
+      if(leg_no == 1 || leg_no == 3)
+      {
+        temp_motor_angle = -(temp_motor_angle);
+      }
+    break;
+        
+    case 'h':
+      if(leg_no == 2 || leg_no == 4)
+      {
+        temp_motor_angle = -(temp_motor_angle);
+      }
+    break;
+        
+    default:
+      ROS_ERROR("Invalid motor type for motor angle correction");
+  }
+  return temp_motor_angle;
+}
+    
+    
+    
+    
+    
+vector <double> Leg_Class::calc_motor_angle(double perp_height, double fb_angle, double lr_angle)
+{
+  vector <double> motor_commands {0.0, 0.0, 0.0};
+      
+  if((perp_height < 0.0 || perp_height > MAX_PERP_HEIGHT) || (lr_angle > MAX_LR_ANGLE || lr_angle < (-MAX_LR_ANGLE)) || (fb_angle > MAX_FB_ANGLE || fb_angle < (-MAX_FB_ANGLE)))
+  {
+    ROS_ERROR("Leg Class Calculation exceeding limits - Perp_Height : %f, FB_Angle : %f, LR_Angle : %f", perp_height, fb_angle, lr_angle);
+  }
+      
+  else
+  {
+    double theta_l = 0.0, theta_h = 0.0, theta_t = 0.0;
+    double LEF = ((perp_height/cos(lr_angle)) + (0.1*(tan(lr_angle))))/cos(fb_angle);
+        
+    theta_l = asin((LEF/2)/THIGH_LEN);
+    theta_h = 2 * theta_l;
+    theta_t = lr_angle;
+    
+    motor_commands[0] = motor_angle_correction('t', lr_angle, theta_t);
+    motor_commands[1] = motor_angle_correction('l', fb_angle, theta_l);
+    motor_commands[2] = motor_angle_correction('h', fb_angle, theta_h);
+  }
+      
+  return motor_commands;
+}
